@@ -51,8 +51,8 @@ script:
   - vendorcheck ./...
   - go test ./cmd/...
   - go test ./src/...
-  # build wallets
-  - if [[ "$TRAVIS_PULL_REQUEST" == false ]]; then ./ci-scripts/build-wallet.sh; fi
+  # # build wallets
+  # - if [[ "$TRAVIS_PULL_REQUEST" == false ]]; then ./ci-scripts/build-wallet.sh; fi
 
 # after_script:
 #   - golint -set_exit_status ./src/...
@@ -62,16 +62,16 @@ notifications:
   email: false
 
 
-deploy:
-  provider: s3
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: $AWS_BUCKET
-  skip_cleanup: true
-  local_dir: electron/release
-  upload-dir: wallet
-  acl: public_read
-  region: $AWS_REGION
-  on:
-    repo: skycoin/skycoin
-    branch: master
+# deploy:
+#   provider: s3
+#   access_key_id: $AWS_ACCESS_KEY_ID
+#   secret_access_key: $AWS_SECRET_ACCESS_KEY
+#   bucket: $AWS_BUCKET
+#   skip_cleanup: true
+#   local_dir: electron/release
+#   upload-dir: wallet
+#   acl: public_read
+#   region: $AWS_REGION
+#   on:
+#     repo: skycoin/skycoin
+#     branch: master

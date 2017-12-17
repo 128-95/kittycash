@@ -1,13 +1,13 @@
 {
-    "name": "skycoin",
-    "productName": "Skycoin",
-    "author": "skycoin",
+    "name": "kittycash",
+    "productName": "Kittycash",
+    "author": "kittycash",
     "main": "src/electron-main.js",
     "version": "0.21.1",
-    "description": "skycoin wallet",
+    "description": "kittycash wallet",
     "license": "MIT",
     "build": {
-        "appId": "org.skycoin.skycoin",
+        "appId": "org.kittycash.kittycash",
         "nsis": {
             "oneClick": false,
             "allowToChangeInstallationDirectory": true

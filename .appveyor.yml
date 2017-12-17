@@ -2,7 +2,7 @@ image: Visual Studio 2017
 platform:
   - x64
 
-clone_folder: c:\gopath\src\github.com\skycoin\skycoin
+clone_folder: c:\gopath\src\github.com\kittycash\kittycash
 
 branches:
   only:
@@ -34,31 +34,31 @@ build_script:
   - ps: cd ..
 
 after_build:
-  - ps: 7z a skycoin.zip C:\gopath\src\github.com\skycoin\skycoin\electron\release\*
+  - ps: 7z a kittycash.zip C:\gopath\src\github.com\kittycash\kittycash\electron\release\*
   - ps: ls *.zip
 
 test: off
 
 artifacts:
-  - path: skycoin.zip
+  - path: kittycash.zip
     name: published
 
-deploy:
-  provider: S3
-  access_key_id: $(AWS_ACCESS_KEY_ID)
-  secret_access_key: $(AWS_SECRET_ACCESS_KEY)
-  bucket: $(AWS_BUCKET)
-  region: $(AWS_REGION)
-  folder: wallet
-  artifact: published
-  unzip: true
-  set_public: true
-  on:
-    branch: master
+# deploy:
+#   provider: S3
+#   access_key_id: $(AWS_ACCESS_KEY_ID)
+#   secret_access_key: $(AWS_SECRET_ACCESS_KEY)
+#   bucket: $(AWS_BUCKET)
+#   region: $(AWS_REGION)
+#   folder: wallet
+#   artifact: published
+#   unzip: true
+#   set_public: true
+#   on:
+#     branch: master
 
 
-notifications:
-  - provider: Email
-    on_build_success: false
-    on_build_failure: false
-    on_build_status_changed: false
+# notifications:
+#   - provider: Email
+#     on_build_success: false
+#     on_build_failure: false
+#     on_build_status_changed: false
