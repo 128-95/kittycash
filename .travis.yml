@@ -3,75 +3,50 @@ dist: trusty
 language: go
 go:
 - 1.9.x
-
 env:
   global:
-    - ELECTRON_CACHE: $HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE: $HOME/.cache/electron-builder
-
+  - ELECTRON_CACHE: "$HOME/.cache/electron"
+  - ELECTRON_BUILDER_CACHE: "$HOME/.cache/electron-builder"
 cache:
   yarn: true
   directories:
   - electron/node_modules
   - electron/src/node_modules
-  - $HOME/.cache/electron
-  - $HOME/.cache/electron-builder
-  - $HOME/.npm/_prebuilds
-
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
+  - "$HOME/.npm/_prebuilds"
 matrix:
   include:
   - os: linux
     dist: trusty
   - os: osx
-
 install:
-  # Install gox
-  - go get github.com/gz-c/gox
-  # Install dependences for building wallet
-  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" == false ]]; then sudo apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils  &&nvm install 8; fi
-  # for test
-  - go get -t ./...
-  - go get github.com/golang/lint/golint
-  - go get github.com/FiloSottile/vendorcheck
-  # Install gometalinter and certain linters
-  - go get github.com/alecthomas/gometalinter
-  # - go get github.com/client9/misspell/cmd/misspell
-  # - go get github.com/gordonklaus/ineffassign
-  - go get golang.org/x/tools/cmd/goimports
-  # - go get github.com/tsenart/deadcode
-
-
-
+- go get github.com/gz-c/gox
+- if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" == false ]]; then sudo
+  apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils  &&nvm
+  install 8; fi
+- go get -t ./...
+- go get github.com/golang/lint/golint
+- go get github.com/FiloSottile/vendorcheck
+- go get github.com/alecthomas/gometalinter
+- go get golang.org/x/tools/cmd/goimports
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" && "$TRAVIS_PULL_REQUEST" == false ]]; then ./ci-scripts/add-key.sh && npm install -g yarn ;fi
-
+- if [[ "$TRAVIS_OS_NAME" == "osx" && "$TRAVIS_PULL_REQUEST" == false ]]; then ./ci-scripts/add-key.sh
+  && npm install -g yarn ;fi
 script:
-  # - gometalinter --disable-all -E vet -E gofmt -E misspell -E ineffassign -E goimports -E deadcode --tests --vendor ./...
-  - gometalinter --disable-all -E goimports --tests --vendor ./...
-  - vendorcheck ./...
-  - go test ./cmd/...
-  - go test ./src/...
-  # # build wallets
-  # - if [[ "$TRAVIS_PULL_REQUEST" == false ]]; then ./ci-scripts/build-wallet.sh; fi
-
-# after_script:
-#   - golint -set_exit_status ./src/...
-#   - golint -set_exit_status ./cmd/...
-
+- gometalinter --disable-all -E goimports --tests --vendor ./...
+- vendorcheck ./...
+- go test ./cmd/...
+- go test ./src/...
+- if [[ "$TRAVIS_PULL_REQUEST" == false ]]; then ./ci-scripts/build-wallet.sh; fi
 notifications:
   email: false
-
-
-# deploy:
-#   provider: s3
-#   access_key_id: $AWS_ACCESS_KEY_ID
-#   secret_access_key: $AWS_SECRET_ACCESS_KEY
-#   bucket: $AWS_BUCKET
-#   skip_cleanup: true
-#   local_dir: electron/release
-#   upload-dir: wallet
-#   acl: public_read
-#   region: $AWS_REGION
-#   on:
-#     repo: skycoin/skycoin
-#     branch: master
+deploy:
+  provider: releases
+  api_key:
+    secure: pNvLVVWnPKOPU7iQu5uNFsU+cBEv5u2LoJ3Z8+KASy+q7f8DPAgSoCKV7UlrcaOuby59rdvDcHZ7mZLhgVh6KoPXN9Av/p1GY85LyYarl5mOSBqobdz4XVfQN2qcTKwv8r806b+xvLnZjuPxALYlx+wkigwBL+8CP5dQLfRN9xmbK+UMijTU0q1bHHT2i8NZV26PEYGioHqKK8ZtXucl+w+pb0ZztBm/m9ISqiL5ehAtTq3tyyIBJv4dIWby9I6kRixRa6I8Wam5bapUgV85DEvLW+t2E33JHsDhS5Li162Dcy5xNDaRorNHd9m8JX2ctCf+fGxiRmpcPCIt06uGGNfcrPWiUQ6DZqx+37vj/tcp8vGXNjLr+VPq/6X1Vgy/c4Du//LLTr6f7Ozjq6OwnjVSiR+1g3pSXAZdq44zV6Vjxy12BjkdryQOx/s+8eCMJ5HwDdmjJgmiGwpc/hq0d4+CSmiS4v0lpBreFd2zFWMasQuhQoMEZ5mIDGCFnXC1wGrTRYfze2bxfUl4zGx6QZqDn9HCwBKWMMgBXSXJl5RWrgTx+RQoGZQ18Rfg7TYIJBkxJ6GykQuWfxJuRiyNu2gBdQ9lFtVt8VL7iDRBU97t/6DUSBkkPPZvXn2SBNIv9vEpFY/g/eQ+n+zmTI+I9vxB7R5taNXQAK9PbLDDfsc=
+  file: electron/release/*
+  skip_cleanup: true
+  on:
+    repo: kittycash/kittycash
+    tags: true
