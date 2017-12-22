@@ -42,6 +42,17 @@ test: off
 artifacts:
   - path: kittycash.zip
     name: published
+  
+
+# deploy to github
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: Wxdp9aPViQIEoVk2Bnz/Kjx2pcp29C356HI8TJBYNgYkiI0IJj3ptA1u649OwJEZ
+  artifact: kittycash.zip
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
 
 # deploy:
 #   provider: S3
@@ -57,8 +68,8 @@ artifacts:
 #     branch: master
 
 
-# notifications:
-#   - provider: Email
-#     on_build_success: false
-#     on_build_failure: false
-#     on_build_status_changed: false
+notifications:
+  - provider: Email
+    on_build_success: false
+    on_build_failure: false
+    on_build_status_changed: false
