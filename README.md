@@ -1,23 +1,20 @@
-![skycoin logo](https://user-images.githubusercontent.com/26845312/32426705-d95cb988-c281-11e7-9463-a3fce8076a72.png)
+![kittycash logo](https://avatars1.githubusercontent.com/u/34572254?s=200&v=4)
 
 # Kittycash
 
 [![Build Status](https://travis-ci.org/kittycash/kittycash.svg)](https://travis-ci.org/kittycash/kittycash)
-[![GoDoc](https://godoc.org/github.com/kittycash/kittycash?status.svg)](https://godoc.org/github.com/kittycash/kittycash)
 [![Go Report Card](https://goreportcard.com/badge/github.com/kittycash/kittycash)](https://goreportcard.com/report/github.com/kittycash/kittycash)
 
-Skycoin is a next-generation cryptocurrency.
+Kittycash is a next-generation cryptocurrency.
 
-Skycoin improves on Bitcoin in too many ways to be addressed here.
+Kittycash improves on Bitcoin in too many ways to be addressed here.
 
-Skycoin is a small part of OP Redecentralize and OP Darknet Plan.
+Kittycash is a small part of OP Redecentralize and OP Darknet Plan.
 
 ## Links
 
-* [skycoin.net](https://www.skycoin.net)
-* [Skycoin Blog](https://blog.skycoin.net)
-* [Skycoin Blockchain Explorer](https://explorer.skycoin.net)
-* [Skycoin Distribution Event](https://event.skycoin.net)
+* [kittycash.io](https://kittycash.io)
+* [Kittycash Blog](https://blog.kittycash.io)
 
 ## Table of Contents
 
@@ -25,15 +22,15 @@ Skycoin is a small part of OP Redecentralize and OP Darknet Plan.
 
 - [Installation](#installation)
     - [Go 1.9+ Installation and Setup](#go-19-installation-and-setup)
-    - [Go get skycoin](#go-get-skycoin)
-    - [Run Skycoin from the command line](#run-skycoin-from-the-command-line)
-    - [Show Skycoin node options](#show-skycoin-node-options)
-    - [Run Skycoin with options](#run-skycoin-with-options)
+    - [Go get kittycash](#go-get-kittycash)
+    - [Run Kittycash from the command line](#run-kittycash-from-the-command-line)
+    - [Show Kittycash node options](#show-kittycash-node-options)
+    - [Run Kittycash with options](#run-kittycash-with-options)
     - [Docker image](#docker-image)
 - [API Documentation](#api-documentation)
     - [Wallet REST API](#wallet-rest-api)
     - [JSON-RPC 2.0 API](#json-rpc-20-api)
-    - [Skycoin command line interface](#skycoin-command-line-interface)
+    - [Kittycash command line interface](#kittycash-command-line-interface)
 - [Contributing a node to the network](#contributing-a-node-to-the-network)
 - [Development](#development)
     - [Modules](#modules)
@@ -53,41 +50,37 @@ Skycoin is a small part of OP Redecentralize and OP Darknet Plan.
 
 [Golang 1.9+ Installation/Setup](./Installation.md)
 
-### Go get skycoin
+### Go get kittycash
 
 ```sh
-go get github.com/skycoin/skycoin/...
+go get github.com/kittycash/kittycash/...
 ```
 
-This will download `github.com/skycoin/skycoin` to `$GOPATH/src/github.com/skycoin/skycoin`.
+This will download `github.com/kittycash/kittycash` to `$GOPATH/src/github.com/kittycash/kittycash`.
 
-You can also clone the repo directly with `git clone https://github.com/skycoin/skycoin`,
-but it must be cloned to this path: `$GOPATH/src/github.com/skycoin/skycoin`.
+You can also clone the repo directly with `git clone https://github.com/kittycash/kittycash`,
+but it must be cloned to this path: `$GOPATH/src/github.com/kittycash/kittycash`.
 
-### Run Skycoin from the command line
+### Run Kittycash from the command line
 
 ```sh
-cd $GOPATH/src/github.com/skycoin/skycoin
+cd $GOPATH/src/github.com/kittycash/kittycash
 make run
 ```
 
-### Show Skycoin node options
+### Show Kittycash node options
 
 ```sh
-cd $GOPATH/src/github.com/skycoin/skycoin
+cd $GOPATH/src/github.com/kittycash/kittycash
 make run-help
 ```
 
-### Run Skycoin with options
+### Run Kittycash with options
 
 ```sh
-cd $GOPATH/src/github.com/skycoin/skycoin
+cd $GOPATH/src/github.com/kittycash/kittycash
 make ARGS="--launch-browser=false" run
 ```
-
-### Docker image
-
-A Dockerfile is available at https://github.com/skycoin/docker-img
 
 ## API Documentation
 
@@ -99,23 +92,9 @@ A Dockerfile is available at https://github.com/skycoin/docker-img
 
 [JSON-RPC 2.0 README](src/api/webrpc/README.md).
 
-### Skycoin command line interface
+### Kittycash command line interface
 
 [CLI command API](cmd/cli/README.md).
-
-## Contributing a node to the network
-
-Add your node's ip:port to the [peers.txt](./peers.txt) file.
-This file will be periodically uploaded to https://downloads.skycoin.net/blockchain/peers.txt
-and used to seed client with peers.
-
-## Development
-
-We have two branches: `master` and `develop`.
-
-`develop` is the default branch and will have the latest code.
-
-`master` will always be equal to the current stable release on the website, and should correspond with the latest release tag.
 
 ### Modules
 
@@ -216,18 +195,14 @@ Instructions for doing this:
 
 ### Releases
 
-0. If the `master` branch has commits that are not in `develop` (e.g. due to a hotfix applied to `master`), merge `master` into `develop`
 1. Compile the `src/gui/dist/` to make sure that it is up to date (see [Wallet GUI Development README](src/gui/static/README.md))
 2. Update all version strings in the repo (grep for them) to the new version
 3. Update `CHANGELOG.md`: move the "unreleased" changes to the version and add the date
-4. Merge these changes to `develop`
-5. On the `develop` branch, make sure that the client runs properly from the command line (`./run.sh`)
-6. Build the releases and make sure that the Electron client runs properly on Windows, Linux and macOS. Delete these releases when done.
-7. Make a PR merging `develop` into `master`
-8. Review the PR and merge it
-9. Tag the master branch with the version number. Version tags start with `v`, e.g. `v0.20.0`.
-10. Make sure that the client runs properly from the `master` branch
-11. Create the release builds from the `master` branch (see [Create Release builds](electron/README.md))
+4. Make sure that the client runs properly from the command line (`./run.sh`)
+5. Build the releases and make sure that the Electron client runs properly on Windows, Linux and macOS. Delete these releases when done.
+6. Tag the master branch with the version number. Version tags start with `v`, e.g. `v0.20.0`.
+7. Make sure that the client runs properly from the `master` branch
+8. Create the release builds from the `master` branch (see [Create Release builds](electron/README.md))
 
 If there are problems discovered after merging to master, start over, and increment the 3rd version number.
 For example, `v0.20.0` becomes `v0.20.1`, for minor fixes.
